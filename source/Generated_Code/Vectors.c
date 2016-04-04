@@ -5,7 +5,7 @@
 **     Processor   : MK60FX512VLQ15
 **     Version     : Component 01.006, Driver 01.04, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-03-27, 21:36, # CodeGen: 0
+**     Date/Time   : 2016-04-04, 17:02, # CodeGen: 5
 **     Abstract    :
 **
 **     Settings    :
@@ -54,6 +54,9 @@
 */         
 
   #include "Cpu.h"
+  #include "AS1.h"
+  #include "ASerialLdd1.h"
+  #include "Bit1.h"
   #include "Events.h"
 
 

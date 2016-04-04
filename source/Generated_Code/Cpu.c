@@ -7,7 +7,7 @@
 **     Version     : Component 01.006, Driver 01.04, CPU db: 3.00.000
 **     Datasheet   : K60P144M150SF3RM, Rev. 2, Dec 2011
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-04-04, 15:50, # CodeGen: 1
+**     Date/Time   : 2016-04-04, 17:02, # CodeGen: 5
 **     Abstract    :
 **
 **     Settings    :
@@ -60,6 +60,9 @@
 /* MODULE Cpu. */
 
 /* {Default RTOS Adapter} No RTOS includes */
+#include "AS1.h"
+#include "ASerialLdd1.h"
+#include "Bit1.h"
 #include "PE_Types.h"
 #include "PE_Error.h"
 #include "PE_Const.h"
@@ -295,6 +298,8 @@ void PE_low_level_init(void)
   /* Common initialization of the CPU registers */
   /* NVICIP20: PRI20=0 */
   NVICIP20 = NVIC_IP_PRI20(0x00);
+  /* ### Asynchro serial "AS1" init code ... */
+  AS1_Init();
   /* Enable interrupts of the given priority level */
   Cpu_SetBASEPRI(0U);
 }

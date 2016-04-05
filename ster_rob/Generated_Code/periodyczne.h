@@ -6,7 +6,7 @@
 **     Component   : TimerInt_LDD
 **     Version     : Component 01.018, Driver 01.02, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-04-04, 22:54, # CodeGen: 8
+**     Date/Time   : 2016-04-05, 19:56, # CodeGen: 18
 **     Abstract    :
 **          This TimerInt component implements a periodic interrupt.
 **          When the component and its events are enabled, the "OnInterrupt"
@@ -25,7 +25,7 @@
 **          Interrupt period                               : 1 Hz
 **          Initialization                                 : 
 **            Enabled in init. code                        : yes
-**            Auto initialization                          : no
+**            Auto initialization                          : yes
 **            Event mask                                   : 
 **              OnInterrupt                                : Enabled
 **          CPU clock/configuration selection              : 
@@ -113,6 +113,9 @@ extern "C" {
 /*! Peripheral base address of a device allocated by the component. This constant can be used directly in PDD macros. */
 #define periodyczne_PRPH_BASE_ADDRESS  0x40039000U
   
+/*! Device data structure pointer used when auto initialization property is enabled. This constant can be passed as a first parameter to all component's methods. */
+#define periodyczne_DeviceData  ((LDD_TDeviceData *)PE_LDD_GetDeviceStructure(PE_LDD_COMPONENT_periodyczne_ID))
+
 /* Methods configuration constants - generated for all enabled component's methods */
 #define periodyczne_Init_METHOD_ENABLED /*!< Init method of the component periodyczne is enabled (generated) */
 

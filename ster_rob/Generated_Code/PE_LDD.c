@@ -5,7 +5,7 @@
 **     Processor   : MK60FX512VLQ15
 **     Version     : Component 01.006, Driver 01.04, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-04-04, 23:00, # CodeGen: 9
+**     Date/Time   : 2016-04-05, 21:57, # CodeGen: 23
 **     Abstract    :
 **
 **     Settings    :
@@ -68,7 +68,13 @@
 ** Array of initialized device structures of LDD components.
 ** ===========================================================================
 */
-LDD_TDeviceData *PE_LDD_DeviceDataList[8] = {
+LDD_TDeviceData *PE_LDD_DeviceDataList[14] = {
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
     NULL,
     NULL,
     NULL,
@@ -152,6 +158,14 @@ bool PE_PeripheralUsed(uint32_t PrphBaseAddress)
     case 0x40039000UL:
     /* Base address allocated by peripheral(s) FTM3 */
     case 0x400B9000UL:
+    /* Base address allocated by peripheral(s) PTE */
+    case 0x400FF100UL:
+    /* Base address allocated by peripheral(s) PTB */
+    case 0x400FF040UL:
+    /* Base address allocated by peripheral(s) ADC1 */
+    case 0x400BB000UL:
+    /* Base address allocated by peripheral(s) UART0 */
+    case 0x4006A000UL:
       result = TRUE;
       break;
     default:

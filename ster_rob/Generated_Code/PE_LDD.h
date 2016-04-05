@@ -5,7 +5,7 @@
 **     Processor   : MK60FX512VLQ15
 **     Version     : Component 01.006, Driver 01.04, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-04-04, 23:35, # CodeGen: 17
+**     Date/Time   : 2016-04-05, 21:57, # CodeGen: 23
 **     Abstract    :
 **
 **     Settings    :
@@ -68,6 +68,15 @@
 #include "TU4.h"
 #include "dioda_g.h"
 #include "dioda_r.h"
+#include "dioda1.h"
+#include "dioda2.h"
+#include "dioda3.h"
+#include "extINT.h"
+#include "extINT_init.h"
+#include "ADC.h"
+#include "AdcLdd1.h"
+#include "UART.h"
+#include "ASerialLdd1.h"
 
 
 /*

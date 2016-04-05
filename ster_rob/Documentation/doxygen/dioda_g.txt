@@ -1204,7 +1204,7 @@ registers of the peripheral(s) configured by the component.
 **          Initial polarity                               : low
 **          Initialization                                 : 
 **            Enabled in init. code                        : yes
-**            Auto initialization                          : no
+**            Auto initialization                          : yes
 **            Event mask                                   : 
 **              OnEnd                                      : Disabled
 **          CPU clock/configuration selection              : 

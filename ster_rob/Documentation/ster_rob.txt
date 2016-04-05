@@ -108,6 +108,81 @@ Module "dioda_r"   (component PWM_LDD)
                 16-bit unsigned integer number. The method is available only if it is not selected list of predefined values in 
                 <Starting pulse width> property.
 
+Module "dioda1"    (component BitIO_LDD)
+   - dioda1_GetVal -Returns the input/output value. If the direction is [input] then the input value of the pin is read and 
+                returned. If the direction is [output] then the last written value is read and returned (see <Safe mode> 
+                property for limitations). This method cannot be disabled if direction is [input].
+   - dioda1_PutVal -The specified output value is set. If the direction is <b>input</b>, the component saves the value to a 
+                memory or a register and this value will be written to the pin after switching to the output mode (using 
+                <tt>SetDir(TRUE)</tt>; see <a href="BitIOProperties.html#SafeMode">Safe mode</a> property for limitations). If 
+                the direction is <b>output</b>, it writes the value to the pin. (Method is available only if the direction = 
+                <u><tt>output</tt></u> or <u><tt>input/output</tt></u>).
+   - dioda1_ClrVal -Clears (set to zero) the output value. It is equivalent to the [PutVal(FALSE)]. This method is available 
+                only if the direction = _[output]_ or _[input/output]_.
+   - dioda1_SetVal -Sets (to one) the output value. It is equivalent to the [PutVal(TRUE)]. This method is available only if 
+                the direction = _[output]_ or _[input/output]_.
+
+Module "dioda2"    (component BitIO_LDD)
+   - dioda2_GetVal -Returns the input/output value. If the direction is [input] then the input value of the pin is read and 
+                returned. If the direction is [output] then the last written value is read and returned (see <Safe mode> 
+                property for limitations). This method cannot be disabled if direction is [input].
+   - dioda2_PutVal -The specified output value is set. If the direction is <b>input</b>, the component saves the value to a 
+                memory or a register and this value will be written to the pin after switching to the output mode (using 
+                <tt>SetDir(TRUE)</tt>; see <a href="BitIOProperties.html#SafeMode">Safe mode</a> property for limitations). If 
+                the direction is <b>output</b>, it writes the value to the pin. (Method is available only if the direction = 
+                <u><tt>output</tt></u> or <u><tt>input/output</tt></u>).
+   - dioda2_ClrVal -Clears (set to zero) the output value. It is equivalent to the [PutVal(FALSE)]. This method is available 
+                only if the direction = _[output]_ or _[input/output]_.
+   - dioda2_SetVal -Sets (to one) the output value. It is equivalent to the [PutVal(TRUE)]. This method is available only if 
+                the direction = _[output]_ or _[input/output]_.
+
+Module "dioda3"    (component BitIO_LDD)
+   - dioda3_GetVal -Returns the input/output value. If the direction is [input] then the input value of the pin is read and 
+                returned. If the direction is [output] then the last written value is read and returned (see <Safe mode> 
+                property for limitations). This method cannot be disabled if direction is [input].
+   - dioda3_PutVal -The specified output value is set. If the direction is <b>input</b>, the component saves the value to a 
+                memory or a register and this value will be written to the pin after switching to the output mode (using 
+                <tt>SetDir(TRUE)</tt>; see <a href="BitIOProperties.html#SafeMode">Safe mode</a> property for limitations). If 
+                the direction is <b>output</b>, it writes the value to the pin. (Method is available only if the direction = 
+                <u><tt>output</tt></u> or <u><tt>input/output</tt></u>).
+   - dioda3_ClrVal -Clears (set to zero) the output value. It is equivalent to the [PutVal(FALSE)]. This method is available 
+                only if the direction = _[output]_ or _[input/output]_.
+   - dioda3_SetVal -Sets (to one) the output value. It is equivalent to the [PutVal(TRUE)]. This method is available only if 
+                the direction = _[output]_ or _[input/output]_.
+
+Module "extINT"    (component ExtInt_LDD)
+   - extINT_Init -This method initializes the associated peripheral(s) and the component internal variables. The method is 
+                called automatically as a part of the application initialization code.
+
+Module "extINT_init" (component Init_GPIO_VAR0)
+   - extINT_init_Init -This method initializes registers of the GPIO module according to the Peripheral Initialization settings.
+                Call this method in user code to initialize the module. By default, the method is called by PE automatically; 
+                see "Call Init method" property of the component for more details.
+
+Module "ADC"       (component ADC)
+   - ADC_Measure -This method performs one measurement on all channels that are set in the component inspector. (Note: If the 
+                <number of conversions> is more than one the conversion of A/D channels is performed specified number of times.)
+   - ADC_GetValue16 -This method returns the last measured values of all channels. Compared with <GetValue> method this method 
+                returns more accurate result if the <number of conversions> is greater than 1 and <AD resolution> is less than 
+                16 bits. In addition, the user code dependency on <AD resolution> is eliminated.
+   - ADC_Calibrate -This method starts self calibration process. Calibration is typically used to remove the effects of the 
+                gain and offset from a specific reading.
+
+Module "UART"      (component AsynchroSerial)
+   - UART_RecvChar -If any data is received, this method returns one character, otherwise it returns an error code (it does not 
+                wait for data). This method is enabled only if the receiver property is enabled.  [Note:] Because the preferred 
+                method to handle error and break exception in the interrupt mode is to use events <OnError> and <OnBreak> the 
+                return value ERR_RXEMPTY has higher priority than other error codes. As a consequence the information about an 
+                exception in interrupt mode is returned only if there is a valid character ready to be read.
+   - UART_SendChar -Sends one character to the channel. If the component is temporarily disabled (Disable method) SendChar 
+                method only stores data into an output buffer. In case of a zero output buffer size, only one character can be 
+                stored. Enabling the component (Enable method) starts the transmission of the stored data. This method is 
+                available only if the transmitter property is enabled.
+   - UART_GetCharsInRxBuf -Returns the number of characters in the input buffer. This method is available only if the receiver 
+                property is enabled.
+   - UART_GetCharsInTxBuf -Returns the number of characters in the output buffer. This method is available only if the 
+                transmitter property is enabled.
+
 Module "Cpu"       (component MK60FN1M0LQ15)
 
 ===================================================================================

@@ -7,7 +7,7 @@
 **     Version     : Component 01.006, Driver 01.04, CPU db: 3.00.000
 **     Datasheet   : K60P144M150SF3RM, Rev. 2, Dec 2011
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-04-04, 23:35, # CodeGen: 17
+**     Date/Time   : 2016-04-05, 21:57, # CodeGen: 23
 **     Abstract    :
 **
 **     Settings    :
@@ -68,6 +68,15 @@
 #include "TU4.h"
 #include "dioda_g.h"
 #include "dioda_r.h"
+#include "dioda1.h"
+#include "dioda2.h"
+#include "dioda3.h"
+#include "extINT.h"
+#include "extINT_init.h"
+#include "ADC.h"
+#include "AdcLdd1.h"
+#include "UART.h"
+#include "ASerialLdd1.h"
 #include "PE_Types.h"
 #include "PE_Error.h"
 #include "PE_Const.h"
@@ -93,6 +102,21 @@ volatile uint8_t SR_lock = 0x00U;      /* Lock */
 ** ===================================================================
 */
 void Cpu_SetBASEPRI(uint32_t Level);
+
+/*
+** ===================================================================
+**     Method      :  Cpu_Cpu_ivINT_PORTB (component MK60FN1M0LQ15)
+**
+**     Description :
+**         This ISR services the ivINT_PORTB interrupt shared by several 
+**         components.
+**         This method is internal. It is used by Processor Expert only.
+** ===================================================================
+*/
+PE_ISR(Cpu_ivINT_PORTB)
+{
+  extINT_Interrupt();                  /* Call the service routine */
+}
 
 /*
 ** ===================================================================
@@ -155,9 +179,11 @@ void __init_hardware(void)
                 SIM_CLKDIV1_OUTDIV2(0x01) |
                 SIM_CLKDIV1_OUTDIV3(0x03) |
                 SIM_CLKDIV1_OUTDIV4(0x03); /* Set the system prescalers to safe value */
-  /* SIM_SCGC5: PORTD=1,PORTC=1,PORTA=1 */
-  SIM_SCGC5 |= SIM_SCGC5_PORTD_MASK |
+  /* SIM_SCGC5: PORTE=1,PORTD=1,PORTC=1,PORTB=1,PORTA=1 */
+  SIM_SCGC5 |= SIM_SCGC5_PORTE_MASK |
+               SIM_SCGC5_PORTD_MASK |
                SIM_SCGC5_PORTC_MASK |
+               SIM_SCGC5_PORTB_MASK |
                SIM_SCGC5_PORTA_MASK;   /* Enable clock gate for ports to enable pin routing */
   if ((PMC_REGSC & PMC_REGSC_ACKISO_MASK) != 0x0U) {
     /* PMC_REGSC: ACKISO=1 */
@@ -303,12 +329,41 @@ void PE_low_level_init(void)
   /* SMC_PMPROT: ??=0,??=0,AVLP=0,??=0,ALLS=0,??=0,AVLLS=0,??=0 */
   SMC_PMPROT = 0x00U;                  /* Setup Power mode protection register */
   /* Common initialization of the CPU registers */
+  /* NVICIP88: PRI88=0 */
+  NVICIP88 = NVIC_IP_PRI88(0x00);
   /* NVICIP20: PRI20=0 */
   NVICIP20 = NVIC_IP_PRI20(0x00);
+  /* GPIOB_PDDR: PDD&=~0x20 */
+  GPIOB_PDDR &= (uint32_t)~(uint32_t)(GPIO_PDDR_PDD(0x20));
+  /* PORTB_PCR5: ISF=0,PE=1,PS=1 */
+  PORTB_PCR5 = (uint32_t)((PORTB_PCR5 & (uint32_t)~(uint32_t)(
+                PORT_PCR_ISF_MASK
+               )) | (uint32_t)(
+                PORT_PCR_PE_MASK |
+                PORT_PCR_PS_MASK
+               ));
+  /* PORTB_DFCR: CS=0 */
+  PORTB_DFCR &= (uint32_t)~(uint32_t)(PORT_DFCR_CS_MASK);
+  /* PORTB_DFWR: FILT=0 */
+  PORTB_DFWR &= (uint32_t)~(uint32_t)(PORT_DFWR_FILT(0x1F));
   /* ### PWM_LDD "serwo" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
   (void)serwo_Init(NULL);
+  /* ### TimerInt_LDD "periodyczne" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
+  (void)periodyczne_Init(NULL);
+  /* ### PWM_LDD "dioda_b" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
+  (void)dioda_b_Init(NULL);
+  /* ### PWM_LDD "dioda_g" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
+  (void)dioda_g_Init(NULL);
   /* ### PWM_LDD "dioda_r" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
   (void)dioda_r_Init(NULL);
+  /* ### ExtInt_LDD "extINT" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
+  (void)extINT_Init(NULL);
+  /* ### Init_GPIO "extINT_init" init code ... */
+  extINT_init_Init();
+  /* ### ADC "ADC" init code ... */
+  ADC_Init();
+  /* ### Asynchro serial "UART" init code ... */
+  UART_Init();
   /* Enable interrupts of the given priority level */
   Cpu_SetBASEPRI(0U);
 }

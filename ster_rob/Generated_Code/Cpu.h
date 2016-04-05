@@ -7,7 +7,7 @@
 **     Version     : Component 01.006, Driver 01.04, CPU db: 3.00.000
 **     Datasheet   : K60P144M150SF3RM, Rev. 2, Dec 2011
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-04-04, 15:50, # CodeGen: 1
+**     Date/Time   : 2016-04-05, 20:39, # CodeGen: 19
 **     Abstract    :
 **
 **     Settings    :
@@ -145,6 +145,19 @@ extern volatile uint8_t SR_reg;        /* Current FAULTMASK register */
 /*lint -esym(765,SR_lock) Disable MISRA rule (8.10) checking for symbols (SR_lock). The SR_reg is used in inline assembler. */
 extern volatile uint8_t SR_lock;
 
+
+/* {Default RTOS Adapter} ISR function prototype */
+PE_ISR(Cpu_ivINT_PORTB);
+/*
+** ===================================================================
+**     Method      :  Cpu_Cpu_ivINT_PORTB (component MK60FN1M0LQ15)
+**
+**     Description :
+**         This ISR services the ivINT_PORTB interrupt shared by several 
+**         components.
+**         This method is internal. It is used by Processor Expert only.
+** ===================================================================
+*/
 
 /*
 ** ===================================================================

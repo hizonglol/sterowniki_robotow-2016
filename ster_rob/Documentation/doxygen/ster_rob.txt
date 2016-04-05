@@ -41,6 +41,13 @@
 - \subpage dioda_b
 - \subpage dioda_g
 - \subpage dioda_r
+- \subpage dioda1
+- \subpage dioda2
+- \subpage dioda3
+- \subpage extINT
+- \subpage extINT_init
+- \subpage AdcLdd1
+- \subpage ASerialLdd1
 
 
 */

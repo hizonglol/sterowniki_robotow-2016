@@ -50,15 +50,24 @@
   </PATHS>
   <FILES>
     <GeneratedCs>
+      <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\ADC.c</PathName>
+      <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\ASerialLdd1.c</PathName>
+      <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\AdcLdd1.c</PathName>
       <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\Cpu.c</PathName>
       <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\PE_LDD.c</PathName>
       <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\TU1.c</PathName>
       <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\TU2.c</PathName>
       <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\TU4.c</PathName>
+      <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\UART.c</PathName>
       <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\Vectors.c</PathName>
+      <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\dioda1.c</PathName>
+      <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\dioda2.c</PathName>
+      <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\dioda3.c</PathName>
       <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\dioda_b.c</PathName>
       <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\dioda_g.c</PathName>
       <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\dioda_r.c</PathName>
+      <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\extINT.c</PathName>
+      <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\extINT_init.c</PathName>
       <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\periodyczne.c</PathName>
       <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\serwo.c</PathName>
       <PathName>C:\Users\TwoHe\workspace\ster_rob\Project_Settings\Startup_Code\__arm_end.c</PathName>
@@ -67,6 +76,9 @@
       <PathName>C:\Users\TwoHe\workspace\ster_rob\Sources\main.c</PathName>
     </GeneratedCs>
     <GeneratedHs>
+      <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\ADC.h</PathName>
+      <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\ASerialLdd1.h</PathName>
+      <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\AdcLdd1.h</PathName>
       <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\Cpu.h</PathName>
       <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\IO_Map.h</PathName>
       <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\PE_Const.h</PathName>
@@ -76,9 +88,15 @@
       <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\TU1.h</PathName>
       <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\TU2.h</PathName>
       <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\TU4.h</PathName>
+      <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\UART.h</PathName>
+      <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\dioda1.h</PathName>
+      <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\dioda2.h</PathName>
+      <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\dioda3.h</PathName>
       <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\dioda_b.h</PathName>
       <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\dioda_g.h</PathName>
       <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\dioda_r.h</PathName>
+      <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\extINT.h</PathName>
+      <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\extINT_init.h</PathName>
       <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\periodyczne.h</PathName>
       <PathName>C:\Users\TwoHe\workspace\ster_rob\Generated_Code\serwo.h</PathName>
       <PathName>C:\Users\TwoHe\workspace\ster_rob\Project_Settings\Startup_Code\runtime_configuration.h</PathName>

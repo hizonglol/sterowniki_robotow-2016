@@ -34,7 +34,21 @@ Sources/Events.o: ../Sources/Events.c \
  C:/Users/TwoHe/workspace/ster_rob/Generated_Code/TU4.h \
  C:/Users/TwoHe/workspace/ster_rob/Generated_Code/TU4.h \
  C:/Users/TwoHe/workspace/ster_rob/Generated_Code/dioda_g.h \
- C:/Users/TwoHe/workspace/ster_rob/Generated_Code/dioda_r.h
+ C:/Users/TwoHe/workspace/ster_rob/Generated_Code/dioda_r.h \
+ C:/Users/TwoHe/workspace/ster_rob/Generated_Code/dioda1.h \
+ C:/Freescale/CW\ MCU\ v10.6/MCU/ProcessorExpert/lib/Kinetis/pdd/inc/GPIO_PDD.h \
+ C:/Users/TwoHe/workspace/ster_rob/Generated_Code/dioda2.h \
+ C:/Users/TwoHe/workspace/ster_rob/Generated_Code/dioda3.h \
+ C:/Users/TwoHe/workspace/ster_rob/Generated_Code/extINT.h \
+ C:/Freescale/CW\ MCU\ v10.6/MCU/ProcessorExpert/lib/Kinetis/pdd/inc/PORT_PDD.h \
+ C:/Users/TwoHe/workspace/ster_rob/Generated_Code/extINT_init.h \
+ C:/Users/TwoHe/workspace/ster_rob/Generated_Code/ADC.h \
+ C:/Users/TwoHe/workspace/ster_rob/Generated_Code/AdcLdd1.h \
+ C:/Freescale/CW\ MCU\ v10.6/MCU/ProcessorExpert/lib/Kinetis/pdd/inc/ADC_PDD.h \
+ C:/Users/TwoHe/workspace/ster_rob/Generated_Code/AdcLdd1.h \
+ C:/Users/TwoHe/workspace/ster_rob/Generated_Code/UART.h \
+ C:/Users/TwoHe/workspace/ster_rob/Generated_Code/ASerialLdd1.h \
+ C:/Users/TwoHe/workspace/ster_rob/Generated_Code/ASerialLdd1.h
 
 C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/lib_ewl.prefix:
 
@@ -107,3 +121,31 @@ C:/Users/TwoHe/workspace/ster_rob/Generated_Code/TU4.h:
 C:/Users/TwoHe/workspace/ster_rob/Generated_Code/dioda_g.h:
 
 C:/Users/TwoHe/workspace/ster_rob/Generated_Code/dioda_r.h:
+
+C:/Users/TwoHe/workspace/ster_rob/Generated_Code/dioda1.h:
+
+C:/Freescale/CW\ MCU\ v10.6/MCU/ProcessorExpert/lib/Kinetis/pdd/inc/GPIO_PDD.h:
+
+C:/Users/TwoHe/workspace/ster_rob/Generated_Code/dioda2.h:
+
+C:/Users/TwoHe/workspace/ster_rob/Generated_Code/dioda3.h:
+
+C:/Users/TwoHe/workspace/ster_rob/Generated_Code/extINT.h:
+
+C:/Freescale/CW\ MCU\ v10.6/MCU/ProcessorExpert/lib/Kinetis/pdd/inc/PORT_PDD.h:
+
+C:/Users/TwoHe/workspace/ster_rob/Generated_Code/extINT_init.h:
+
+C:/Users/TwoHe/workspace/ster_rob/Generated_Code/ADC.h:
+
+C:/Users/TwoHe/workspace/ster_rob/Generated_Code/AdcLdd1.h:
+
+C:/Freescale/CW\ MCU\ v10.6/MCU/ProcessorExpert/lib/Kinetis/pdd/inc/ADC_PDD.h:
+
+C:/Users/TwoHe/workspace/ster_rob/Generated_Code/AdcLdd1.h:
+
+C:/Users/TwoHe/workspace/ster_rob/Generated_Code/UART.h:
+
+C:/Users/TwoHe/workspace/ster_rob/Generated_Code/ASerialLdd1.h:
+
+C:/Users/TwoHe/workspace/ster_rob/Generated_Code/ASerialLdd1.h:

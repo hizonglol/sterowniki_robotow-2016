@@ -1,0 +1,41 @@
+/*!
+\page dioda3 dioda3 (BitIO_LDD)
+**         The HAL BitIO component provides a low level API for unified
+**         access to general purpose digital input/output pins across
+**         various device designs.
+**
+**         RTOS drivers using HAL BitIO API are simpler and more
+**         portable to various microprocessors.
+
+- \subpage dioda3_settings
+- \subpage dioda3_regs_overview  
+- \subpage dioda3_regs_details
+- \ref dioda3_module "Component documentation" 
+
+\page dioda3_regs_overview Registers Initialization Overview
+This page initialization values for the registers of the peripheral(s) configured
+by the component. 
+<table>
+<tr><td colspan="4" class="ttitle1">dioda3 Initialization</td></tr>
+<tr><td class="ttitle2">Address</td><td class="ttitle2">Register</td><td class="ttitle2">Register Value</td><td class="ttitle2">Register Description</td></tr>
+</table>
+<br/>
+\page dioda3_regs_details Register Initialization Details
+This page contains detailed description of initialization values for the 
+registers of the peripheral(s) configured by the component. 
+
+*/
+/*!
+\page dioda3_settings Component Settings
+\code
+**          Component name                                 : dioda3
+**          Pin for I/O                                    : ADC1_SE6a/PTE2/LLWU_P1/SPI1_SCK/UART1_CTS_b/SDHC0_DCLK
+**          Pin signal                                     : 
+**          Direction                                      : Output
+**          Initialization                                 : 
+**            Init. direction                              : Output
+**            Init. value                                  : 0
+**            Auto initialization                          : no
+**          Safe mode                                      : no
+\endcode
+*/

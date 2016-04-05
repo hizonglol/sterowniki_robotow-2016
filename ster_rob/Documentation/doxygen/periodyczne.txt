@@ -573,7 +573,7 @@ registers of the peripheral(s) configured by the component.
 **          Interrupt period                               : 1 Hz
 **          Initialization                                 : 
 **            Enabled in init. code                        : yes
-**            Auto initialization                          : no
+**            Auto initialization                          : yes
 **            Event mask                                   : 
 **              OnInterrupt                                : Enabled
 **          CPU clock/configuration selection              : 

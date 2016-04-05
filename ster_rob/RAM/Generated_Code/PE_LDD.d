@@ -20,7 +20,15 @@ Generated_Code/PE_LDD.o: ../Generated_Code/PE_LDD.c \
  ../Generated_Code/Cpu.h ../Generated_Code/periodyczne.h \
  ../Generated_Code/TU2.h ../Generated_Code/dioda_b.h \
  ../Generated_Code/TU4.h ../Generated_Code/dioda_g.h \
- ../Generated_Code/dioda_r.h
+ ../Generated_Code/dioda_r.h ../Generated_Code/dioda1.h \
+ C:/Freescale/CW\ MCU\ v10.6/MCU/ProcessorExpert/lib/Kinetis/pdd/inc/GPIO_PDD.h \
+ ../Generated_Code/dioda2.h ../Generated_Code/dioda3.h \
+ ../Generated_Code/extINT.h \
+ C:/Freescale/CW\ MCU\ v10.6/MCU/ProcessorExpert/lib/Kinetis/pdd/inc/PORT_PDD.h \
+ ../Generated_Code/extINT_init.h ../Generated_Code/ADC.h \
+ ../Generated_Code/AdcLdd1.h \
+ C:/Freescale/CW\ MCU\ v10.6/MCU/ProcessorExpert/lib/Kinetis/pdd/inc/ADC_PDD.h \
+ ../Generated_Code/UART.h ../Generated_Code/ASerialLdd1.h
 
 C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/lib_ewl.prefix:
 
@@ -77,3 +85,27 @@ C:/Freescale/CW\ MCU\ v10.6/MCU/ProcessorExpert/lib/Kinetis/pdd/inc/PDD_Types.h:
 ../Generated_Code/dioda_g.h:
 
 ../Generated_Code/dioda_r.h:
+
+../Generated_Code/dioda1.h:
+
+C:/Freescale/CW\ MCU\ v10.6/MCU/ProcessorExpert/lib/Kinetis/pdd/inc/GPIO_PDD.h:
+
+../Generated_Code/dioda2.h:
+
+../Generated_Code/dioda3.h:
+
+../Generated_Code/extINT.h:
+
+C:/Freescale/CW\ MCU\ v10.6/MCU/ProcessorExpert/lib/Kinetis/pdd/inc/PORT_PDD.h:
+
+../Generated_Code/extINT_init.h:
+
+../Generated_Code/ADC.h:
+
+../Generated_Code/AdcLdd1.h:
+
+C:/Freescale/CW\ MCU\ v10.6/MCU/ProcessorExpert/lib/Kinetis/pdd/inc/ADC_PDD.h:
+
+../Generated_Code/UART.h:
+
+../Generated_Code/ASerialLdd1.h:

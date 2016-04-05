@@ -6,7 +6,7 @@
 **     Component   : PWM_LDD
 **     Version     : Component 01.013, Driver 01.03, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-04-04, 23:35, # CodeGen: 17
+**     Date/Time   : 2016-04-05, 19:56, # CodeGen: 18
 **     Abstract    :
 **          This component implements a pulse-width modulation generator
 **          that generates signal with variable duty and fixed cycle.
@@ -26,7 +26,7 @@
 **          Initial polarity                               : low
 **          Initialization                                 : 
 **            Enabled in init. code                        : yes
-**            Auto initialization                          : no
+**            Auto initialization                          : yes
 **            Event mask                                   : 
 **              OnEnd                                      : Disabled
 **          CPU clock/configuration selection              : 
@@ -118,6 +118,9 @@ extern "C" {
 /*! Peripheral base address of a device allocated by the component. This constant can be used directly in PDD macros. */
 #define dioda_b_PRPH_BASE_ADDRESS  0x400B9000U
   
+/*! Device data structure pointer used when auto initialization property is enabled. This constant can be passed as a first parameter to all component's methods. */
+#define dioda_b_DeviceData  ((LDD_TDeviceData *)PE_LDD_GetDeviceStructure(PE_LDD_COMPONENT_dioda_b_ID))
+
 /* Methods configuration constants - generated for all enabled component's methods */
 #define dioda_b_Init_METHOD_ENABLED    /*!< Init method of the component dioda_b is enabled (generated) */
 #define dioda_b_SetRatio16_METHOD_ENABLED /*!< SetRatio16 method of the component dioda_b is enabled (generated) */

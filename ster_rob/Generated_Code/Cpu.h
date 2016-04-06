@@ -7,7 +7,7 @@
 **     Version     : Component 01.006, Driver 01.04, CPU db: 3.00.000
 **     Datasheet   : K60P144M150SF3RM, Rev. 2, Dec 2011
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-04-05, 20:39, # CodeGen: 19
+**     Date/Time   : 2016-04-06, 22:46, # CodeGen: 28
 **     Abstract    :
 **
 **     Settings    :
@@ -75,7 +75,7 @@ extern "C" {
 #endif
 
 /* Active configuration define symbol */
-#define PEcfg_RAM 1U
+#define PEcfg_FLASH 1U
 
 /* Methods configuration constants - generated for all enabled component's methods */
 

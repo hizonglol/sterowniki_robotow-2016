@@ -6,7 +6,7 @@
 **     Component   : ADC
 **     Version     : Component 01.697, Driver 01.00, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-04-05, 21:57, # CodeGen: 23
+**     Date/Time   : 2016-04-06, 22:46, # CodeGen: 28
 **     Abstract    :
 **         This device "ADC" implements an A/D converter,
 **         its control methods and interrupt/event handling procedure.
@@ -23,8 +23,8 @@
 **              A/D channel (pin)                          : ADC0_SE9/ADC1_SE9/ADC2_SE9/ADC3_SE9/TSI0_CH6/PTB1/I2C0_SDA/FTM1_CH1/RMII0_MDC/MII0_MDC/FTM1_QD_PHB
 **              A/D channel (pin) signal                   : 
 **              Mode select                                : Single Ended
-**          A/D resolution                                 : Autoselect
-**          Conversion time                                : 4 µs
+**          A/D resolution                                 : 8 bits
+**          Conversion time                                : 13.076923 µs
 **          Low-power mode                                 : Disabled
 **          High-speed conversion mode                     : Disabled
 **          Asynchro clock output                          : Disabled
@@ -45,7 +45,6 @@
 **     Contents    :
 **         Measure    - byte ADC_Measure(bool WaitForResult);
 **         GetValue16 - byte ADC_GetValue16(word *Values);
-**         Calibrate  - byte ADC_Calibrate(bool WaitForResult);
 **
 **     Copyright : 1997 - 2014 Freescale Semiconductor, Inc. 
 **     All Rights Reserved.
@@ -109,8 +108,7 @@ LDD_TDeviceData *AdcLdd1_DeviceDataPtr; /* Device data pointer */
 /* Sample group configuration */
 static LDD_ADC_TSample SampleGroup[ADC_SAMPLE_GROUP_SIZE];
 /* Temporary buffer for converting results */
-volatile word ADC_OutV;                /* Sum of measured values */
-/* Calibration in progress flag */
+volatile byte ADC_OutV;                /* Sum of measured values */
 static volatile bool OutFlg;           /* Measurement finish flag */
 
 /*
@@ -213,52 +211,8 @@ byte ADC_GetValue16(word *Values)
   if (!OutFlg) {                       /* Is output flag set? */
     return ERR_NOTAVAIL;               /* If no then error */
   }
-  *Values = ADC_OutV;                  /* Save measured values to the output buffer */
+  *Values = (word)(((word)(ADC_OutV)) << 8U); /* Save measured values to the output buffer */
   return ERR_OK;                       /* OK */
-}
-
-/*
-** ===================================================================
-**     Method      :  ADC_Calibrate (component ADC)
-**     Description :
-**         This method starts self calibration process. Calibration is
-**         typically used to remove the effects of the gain and offset
-**         from a specific reading.
-**     Parameters  :
-**         NAME            - DESCRIPTION
-**         WaitForResult   - Wait for a result of
-**                           calibration. If the <interrupt service> is
-**                           disabled, the WaitForResult parameter is
-**                           ignored and the method waits for
-**                           calibration result every time.
-**     Returns     :
-**         ---             - Error code
-**                           ERR_OK - OK
-**                           ERR_BUSY - A conversion is already running
-**                           ERR_SPEED - This device does not work in
-**                           the active speed mode
-**                           ERR_DISABLED - Device is disabled
-**                           ERR_FAILED - Calibration hasn't been
-**                           finished correctly
-** ===================================================================
-*/
-byte ADC_Calibrate(bool WaitForResult)
-{
-  if (ModeFlg != STOP) {               /* Is the device in different mode than "stop"? */
-    return ERR_BUSY;                   /* If yes then error */
-  }
-  ModeFlg = CALIBRATING;               /* Set state of device to the calibration mode */
-  (void)AdcLdd1_GetMeasurementCompleteStatus(AdcLdd1_DeviceDataPtr); /* Clear measurement complete status */
-  (void)AdcLdd1_StartCalibration(AdcLdd1_DeviceDataPtr); /* Start calibration */
-  if (!WaitForResult) {                /* If doesn't wait for result */
-    return ERR_OK;                     /* then return ERR_OK, but user have to check the result of calibration e.g. by GetCalibrationStatus method */
-  }
-  while (!AdcLdd1_GetMeasurementCompleteStatus(AdcLdd1_DeviceDataPtr)) {}; /* Wait until calibration ends */
-  if (AdcLdd1_GetCalibrationResultStatus(AdcLdd1_DeviceDataPtr) != ERR_OK) { /* If calibration failed flag is set */
-    ModeFlg = STOP;                    /* Set the device to the stop mode */
-    return ERR_FAILED;                 /* Return ERR_FAILED error code */
-  }
-  return ERR_OK;                       /* ADC device is now calibrated */
 }
 
 /*
@@ -275,12 +229,6 @@ byte ADC_Calibrate(bool WaitForResult)
 void AdcLdd1_OnMeasurementComplete(LDD_TUserData *UserDataPtr)
 {
   (void)UserDataPtr;                   /* Parameter is not used, suppress unused argument warning */
-  if (ModeFlg == CALIBRATING) {        /* If the driver is in CALIBRATING mode */
-    (void)AdcLdd1_GetCalibrationResultStatus(AdcLdd1_DeviceDataPtr);
-    ModeFlg = STOP;                    /* Set the device to the stop mode */
-    ADC_OnCalibrationEnd();            /* If yes then invoke user event */
-    return;                            /* Return from interrupt */
-  }
   AdcLdd1_GetMeasuredValues(AdcLdd1_DeviceDataPtr, (LDD_TData *)&ADC_OutV);
   OutFlg = TRUE;                       /* Measured values are available */
   ADC_OnEnd();                         /* If yes then invoke user event */

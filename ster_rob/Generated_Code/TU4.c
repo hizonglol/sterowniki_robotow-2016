@@ -6,7 +6,7 @@
 **     Component   : TimerUnit_LDD
 **     Version     : Component 01.164, Driver 01.11, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-04-04, 23:35, # CodeGen: 17
+**     Date/Time   : 2016-04-06, 22:46, # CodeGen: 28
 **     Abstract    :
 **          This TimerUnit component provides a low level API for unified hardware access across
 **          various timer devices using the Prescaler-Counter-Compare-Capture timer structure.
@@ -21,36 +21,36 @@
 **            Counter frequency                            : 24.414062 kHz
 **          Counter restart                                : On-match
 **            Period device                                : FTM3_MOD
-**            Period                                       : 1 sec
+**            Period                                       : 2.5 sec
 **            Interrupt                                    : Disabled
 **          Channel list                                   : 3
 **            Channel 0                                    : 
 **              Mode                                       : Compare
 **                Compare                                  : FTM3_C0V
-**                Offset                                   : 0.8 sec
-**                Output on compare                        : Set
-**                  Output on overrun                      : Clear
-**                  Initial state                          : Low
+**                Offset                                   : 2.5 sec
+**                Output on compare                        : Clear
+**                  Output on overrun                      : Set
+**                  Initial state                          : High
 **                  Output pin                             : PTD0/LLWU_P12/SPI0_PCS0/UART2_RTS_b/FTM3_CH0/FBa_ALE/FBa_CS1_b/FBa_TS_b/I2S1_RXD1
 **                  Output pin signal                      : 
 **                Interrupt                                : Disabled
 **            Channel 1                                    : 
 **              Mode                                       : Compare
 **                Compare                                  : FTM3_C1V
-**                Offset                                   : 0.1 sec
-**                Output on compare                        : Set
-**                  Output on overrun                      : Clear
-**                  Initial state                          : Low
+**                Offset                                   : 1.6 sec
+**                Output on compare                        : Clear
+**                  Output on overrun                      : Set
+**                  Initial state                          : High
 **                  Output pin                             : ADC0_SE5b/PTD1/SPI0_SCK/UART2_CTS_b/FTM3_CH1/FBa_CS0_b/I2S1_RXD0
 **                  Output pin signal                      : 
 **                Interrupt                                : Disabled
 **            Channel 2                                    : 
 **              Mode                                       : Compare
 **                Compare                                  : FTM3_C2V
-**                Offset                                   : 0.1 sec
-**                Output on compare                        : Set
-**                  Output on overrun                      : Clear
-**                  Initial state                          : Low
+**                Offset                                   : 0.8 sec
+**                Output on compare                        : Clear
+**                  Output on overrun                      : Set
+**                  Initial state                          : High
 **                  Output pin                             : PTD2/LLWU_P13/SPI0_SOUT/UART2_RX/FTM3_CH2/FBa_AD4/I2S1_RX_FS
 **                  Output pin signal                      : 
 **                Interrupt                                : Disabled
@@ -226,20 +226,26 @@ LDD_TDeviceData* TU4_Init(LDD_TUserData *UserDataPtr)
   FTM3_C6SC = 0x00U;                   /* Clear channel status and control register */
   /* FTM3_C7SC: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,CHF=0,CHIE=0,MSB=0,MSA=0,ELSB=0,ELSA=0,??=0,DMA=0 */
   FTM3_C7SC = 0x00U;                   /* Clear channel status and control register */
-  /* FTM3_MOD: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,MOD=0x5F5D */
-  FTM3_MOD = FTM_MOD_MOD(0x5F5D);      /* Set up modulo register */
-  /* FTM3_C0SC: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,CHF=0,CHIE=0,MSB=1,MSA=0,ELSB=1,ELSA=1,??=0,DMA=0 */
-  FTM3_C0SC = (FTM_CnSC_MSB_MASK | FTM_CnSC_ELSB_MASK | FTM_CnSC_ELSA_MASK); /* Set up channel status and control register */
-  /* FTM3_C0V: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,VAL=0x4C4B */
-  FTM3_C0V = FTM_CnV_VAL(0x4C4B);      /* Set up channel value register */
-  /* FTM3_C1SC: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,CHF=0,CHIE=0,MSB=1,MSA=0,ELSB=1,ELSA=1,??=0,DMA=0 */
-  FTM3_C1SC = (FTM_CnSC_MSB_MASK | FTM_CnSC_ELSB_MASK | FTM_CnSC_ELSA_MASK); /* Set up channel status and control register */
-  /* FTM3_C1V: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,VAL=0x0989 */
-  FTM3_C1V = FTM_CnV_VAL(0x0989);      /* Set up channel value register */
-  /* FTM3_C2SC: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,CHF=0,CHIE=0,MSB=1,MSA=0,ELSB=1,ELSA=1,??=0,DMA=0 */
-  FTM3_C2SC = (FTM_CnSC_MSB_MASK | FTM_CnSC_ELSB_MASK | FTM_CnSC_ELSA_MASK); /* Set up channel status and control register */
-  /* FTM3_C2V: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,VAL=0x0989 */
-  FTM3_C2V = FTM_CnV_VAL(0x0989);      /* Set up channel value register */
+  /* FTM3_MOD: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,MOD=0xEE6A */
+  FTM3_MOD = FTM_MOD_MOD(0xEE6A);      /* Set up modulo register */
+  /* FTM3_C0SC: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,CHF=0,CHIE=0,MSB=1,MSA=0,ELSB=1,ELSA=0,??=0,DMA=0 */
+  FTM3_C0SC = (FTM_CnSC_MSB_MASK | FTM_CnSC_ELSB_MASK); /* Set up channel status and control register */
+  /* FTM3_C0V: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,VAL=0xEE6B */
+  FTM3_C0V = FTM_CnV_VAL(0xEE6B);      /* Set up channel value register */
+  /* FTM3_C1SC: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,CHF=0,CHIE=0,MSB=1,MSA=0,ELSB=1,ELSA=0,??=0,DMA=0 */
+  FTM3_C1SC = (FTM_CnSC_MSB_MASK | FTM_CnSC_ELSB_MASK); /* Set up channel status and control register */
+  /* FTM3_C1V: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,VAL=0x9896 */
+  FTM3_C1V = FTM_CnV_VAL(0x9896);      /* Set up channel value register */
+  /* FTM3_C2SC: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,CHF=0,CHIE=0,MSB=1,MSA=0,ELSB=1,ELSA=0,??=0,DMA=0 */
+  FTM3_C2SC = (FTM_CnSC_MSB_MASK | FTM_CnSC_ELSB_MASK); /* Set up channel status and control register */
+  /* FTM3_C2V: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,VAL=0x4C4B */
+  FTM3_C2V = FTM_CnV_VAL(0x4C4B);      /* Set up channel value register */
+  /* FTM3_OUTINIT: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,CH7OI=0,CH6OI=0,CH5OI=0,CH4OI=0,CH3OI=0,CH2OI=1,CH1OI=1,CH0OI=1 */
+  FTM3_OUTINIT = FTM_OUTINIT_CH2OI_MASK |
+                 FTM_OUTINIT_CH1OI_MASK |
+                 FTM_OUTINIT_CH0OI_MASK; /* Set up Initial State for Channel Output register */
+  /* FTM3_MODE: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,FAULTIE=0,FAULTM=0,CAPTEST=0,PWMSYNC=0,WPDIS=1,INIT=1,FTMEN=0 */
+  FTM3_MODE = (FTM_MODE_FAULTM(0x00) | FTM_MODE_WPDIS_MASK | FTM_MODE_INIT_MASK); /* Initialize the Output Channels */
   /* PORTD_PCR0: ISF=0,MUX=4 */
   PORTD_PCR0 = (uint32_t)((PORTD_PCR0 & (uint32_t)~(uint32_t)(
                 PORT_PCR_ISF_MASK |

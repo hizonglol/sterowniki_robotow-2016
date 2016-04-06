@@ -6,7 +6,7 @@
 **     Component   : ADC_LDD
 **     Version     : Component 01.183, Driver 01.08, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-04-05, 21:57, # CodeGen: 23
+**     Date/Time   : 2016-04-06, 22:46, # CodeGen: 28
 **     Abstract    :
 **         This device "ADC_LDD" implements an A/D converter,
 **         its control methods and interrupt/event handling procedure.
@@ -25,19 +25,19 @@
 **                  A/D channel (pin)                      : ADC0_SE9/ADC1_SE9/ADC2_SE9/ADC3_SE9/TSI0_CH6/PTB1/I2C0_SDA/FTM1_CH1/RMII0_MDC/MII0_MDC/FTM1_QD_PHB
 **                  A/D channel (pin) signal               : 
 **          Static sample groups                           : Disabled
-**          A/D resolution                                 : Autoselect
+**          A/D resolution                                 : 8 bits
 **          Low-power mode                                 : Disabled
 **          High-speed conversion mode                     : Disabled
 **          Asynchro clock output                          : Disabled
 **          Sample time                                    : 4 clock periods
 **          Number of conversions                          : 1
-**          Conversion time                                : 4 µs
-**          ADC clock                                      : 6.25 MHz (160 ns)
-**          Single conversion time - Single-ended          : 4.866 us
-**          Single conversion time - Differential          : 6.306 us
-**          Additional conversion time - Single-ended      : 4 us
-**          Additional conversion time - Differential      : 5.44 us
-**          Result type                                    : unsigned 16 bits, right justified
+**          Conversion time                                : 13.076923 µs
+**          ADC clock                                      : 1.299 MHz (769.231 ns)
+**          Single conversion time - Single-ended          : 21.989 us
+**          Single conversion time - Differential          : 29.682 us
+**          Additional conversion time - Single-ended      : 13.076 us
+**          Additional conversion time - Differential      : 20.769 us
+**          Result type                                    : unsigned 8 bits, right justified
 **          Trigger                                        : Disabled
 **          Voltage reference                              : 
 **            High voltage reference                       : 
@@ -68,8 +68,6 @@
 **         GetMeasuredValues            - LDD_TError AdcLdd1_GetMeasuredValues(LDD_TDeviceData *DeviceDataPtr,...
 **         CreateSampleGroup            - LDD_TError AdcLdd1_CreateSampleGroup(LDD_TDeviceData *DeviceDataPtr,...
 **         GetMeasurementCompleteStatus - bool AdcLdd1_GetMeasurementCompleteStatus(LDD_TDeviceData *DeviceDataPtr);
-**         StartCalibration             - LDD_TError AdcLdd1_StartCalibration(LDD_TDeviceData *DeviceDataPtr);
-**         GetCalibrationResultStatus   - LDD_TError AdcLdd1_GetCalibrationResultStatus(LDD_TDeviceData *DeviceDataPtr);
 **
 **     Copyright : 1997 - 2014 Freescale Semiconductor, Inc. 
 **     All Rights Reserved.
@@ -146,8 +144,6 @@ extern "C" {
 #define AdcLdd1_GetMeasuredValues_METHOD_ENABLED /*!< GetMeasuredValues method of the component AdcLdd1 is enabled (generated) */
 #define AdcLdd1_CreateSampleGroup_METHOD_ENABLED /*!< CreateSampleGroup method of the component AdcLdd1 is enabled (generated) */
 #define AdcLdd1_GetMeasurementCompleteStatus_METHOD_ENABLED /*!< GetMeasurementCompleteStatus method of the component AdcLdd1 is enabled (generated) */
-#define AdcLdd1_StartCalibration_METHOD_ENABLED /*!< StartCalibration method of the component AdcLdd1 is enabled (generated) */
-#define AdcLdd1_GetCalibrationResultStatus_METHOD_ENABLED /*!< GetCalibrationResultStatus method of the component AdcLdd1 is enabled (generated) */
 
 /* Events configuration constants - generated for all enabled component's events */
 #define AdcLdd1_OnMeasurementComplete_EVENT_ENABLED /*!< OnMeasurementComplete event of the component AdcLdd1 is enabled (generated) */
@@ -158,7 +154,7 @@ extern "C" {
 /* Driver mode */
 
 /* A/D resolution of the component (the count of bits) */
-#define AdcLdd1_ADC_RESOLUTION          16
+#define AdcLdd1_ADC_RESOLUTION          8
 
 /* Name of AD channel. If the "A/D channel (pin) signal" property in the channel
    pin group is not empty the constant "ComponentName_Signal" with the value of the channel
@@ -185,7 +181,7 @@ extern "C" {
 #define AdcLdd1_MAX_HW_SAMPLE_COUNT     1U
 
 /* This constant informs about the actual width of results. */
-#define AdcLdd1_RESULT_WIDTH            16U
+#define AdcLdd1_RESULT_WIDTH            8U
 
 /* This constant informs about the native size of result in bytes */
 #define AdcLdd1_RESULT_WIDTH_BYTES      2U
@@ -195,7 +191,7 @@ extern "C" {
 
 /* Measurement result data type. Definition of the type depends
    on "Result type" property value. */
-typedef uint16_t AdcLdd1_TResultData;
+typedef uint8_t AdcLdd1_TResultData;
 
 
 /*
@@ -384,50 +380,6 @@ LDD_TError AdcLdd1_GetMeasuredValues(LDD_TDeviceData *DeviceDataPtr, LDD_TData *
 */
 /* ===================================================================*/
 bool AdcLdd1_GetMeasurementCompleteStatus(LDD_TDeviceData *DeviceDataPtr);
-
-/*
-** ===================================================================
-**     Method      :  AdcLdd1_StartCalibration (component ADC_LDD)
-*/
-/*!
-**     @brief
-**         This method starts self calibration process. Calibration is
-**         typically used to remove the effects of the gain and offset
-**         from a specific reading.
-**     @param
-**         DeviceDataPtr   - Device data structure
-**                           pointer returned by [Init] method.
-**     @return
-**                         - Error code
-**                           ERR_OK - OK
-**                           ERR_SPEED - The device doesn't work in the
-**                           active clock configuration
-**                           ERR_DISABLED - Component is disabled
-**                           ERR_BUSY - A conversion is already running 
-*/
-/* ===================================================================*/
-LDD_TError AdcLdd1_StartCalibration(LDD_TDeviceData *DeviceDataPtr);
-
-/*
-** ===================================================================
-**     Method      :  AdcLdd1_GetCalibrationResultStatus (component ADC_LDD)
-*/
-/*!
-**     @brief
-**         This method should be used for check the last calibration
-**         result. If calibration completed normally the method finish
-**         calibration process by writing gain calibration values.
-**     @param
-**         DeviceDataPtr   - Device data structure
-**                           pointer returned by [Init] method.
-**     @return
-**                         - Error code
-**                           ERR_OK - OK 
-**                           ERR_FAILED - Last calibration hasn't been
-**                           finished correctly
-*/
-/* ===================================================================*/
-LDD_TError AdcLdd1_GetCalibrationResultStatus(LDD_TDeviceData *DeviceDataPtr);
 
 /*
 ** ===================================================================

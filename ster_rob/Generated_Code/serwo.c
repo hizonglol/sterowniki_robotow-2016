@@ -6,7 +6,7 @@
 **     Component   : PWM_LDD
 **     Version     : Component 01.013, Driver 01.03, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-04-04, 22:09, # CodeGen: 7
+**     Date/Time   : 2016-04-06, 22:46, # CodeGen: 28
 **     Abstract    :
 **          This component implements a pulse-width modulation generator
 **          that generates signal with variable duty and fixed cycle.
@@ -22,8 +22,8 @@
 **          Counter                                        : FTM0_CNT
 **          Interrupt service/event                        : Disabled
 **          Period                                         : 20 ms
-**          Starting pulse width                           : 1.5 ms
-**          Initial polarity                               : low
+**          Starting pulse width                           : 0 ms
+**          Initial polarity                               : high
 **          Initialization                                 : 
 **            Enabled in init. code                        : yes
 **            Auto initialization                          : yes
@@ -147,7 +147,7 @@ LDD_TDeviceData* serwo_Init(LDD_TUserData *UserDataPtr)
   DeviceDataPrv = &DeviceDataPrv__DEFAULT_RTOS_ALLOC;
   DeviceDataPrv->UserDataPtr = UserDataPtr; /* Store the RTOS device structure */
   DeviceDataPrv->EnUser = TRUE;        /* Set the flag "device enabled" */
-  DeviceDataPrv->RatioStore = 0x135FU; /* Ratio after initialization */
+  DeviceDataPrv->RatioStore = 0x01U;   /* Ratio after initialization */
   /* Registration of the device structure */
   PE_LDD_RegisterDeviceStructure(PE_LDD_COMPONENT_serwo_ID,DeviceDataPrv);
   DeviceDataPrv->LinkedDeviceDataPtr = TU1_Init((LDD_TUserData *)NULL);

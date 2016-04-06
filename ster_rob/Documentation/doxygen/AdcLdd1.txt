@@ -30,7 +30,7 @@ by the component.
     0x00000000
  </td><td>PORTB_PCR1 register, peripheral AdcLdd1.</td></tr>
 <tr><td>0x400BB008</td><td>ADC1_CFG1</td><td>
-    0x0000006E
+    0x00000043
  </td><td>ADC1_CFG1 register, peripheral AdcLdd1.</td></tr>
 <tr><td>0x400BB00C</td><td>ADC1_CFG2</td><td>
     0x00000000
@@ -333,13 +333,13 @@ registers of the peripheral(s) configured by the component.
         
 </div>
 <table class="regtbl2"><tr><td class="trowtit" colspan="2">Address</td><td colspan="2">0x400BB008</td></tr>
-<tr class="trowtit"><td  class="trowtit" colspan="2">Initial value</td><td colspan="2">0x0000006E</td></tr>
+<tr class="trowtit"><td  class="trowtit" colspan="2">Initial value</td><td colspan="2">0x00000043</td></tr>
 <tr class="trowtit"><td  class="trowtit" colspan="2">After-reset value</td><td colspan="2">0x00000000</td></tr>
 <tr><td class="ttitle2">Bit</td><td class="ttitle2">Field</td><td class="ttitle2">Value</td><td class="ttitle2">Description</td></tr>
 <tr><td>7</td><td>ADLPC</td><td>0x00</td><td>Low-power configuration</td>
 <tr><td>5 - 6</td><td>ADIV</td><td>0x02</td><td>Clock divide select</td>
 <tr><td>4</td><td>ADLSMP</td><td>0x00</td><td>Sample time configuration</td>
-<tr><td>2 - 3</td><td>MODE</td><td>0x02</td><td>Conversion mode selection</td>
+<tr><td>2 - 3</td><td>MODE</td><td>0x00</td><td>Conversion mode selection</td>
 <tr><td>0 - 1</td><td>ADICLK</td><td>0x02</td><td>Input clock select</td>
 </tr></table>
 <div class="reghdr1">ADC1_CFG2</div>
@@ -528,19 +528,19 @@ registers of the peripheral(s) configured by the component.
 **                  A/D channel (pin)                      : ADC0_SE9/ADC1_SE9/ADC2_SE9/ADC3_SE9/TSI0_CH6/PTB1/I2C0_SDA/FTM1_CH1/RMII0_MDC/MII0_MDC/FTM1_QD_PHB
 **                  A/D channel (pin) signal               : 
 **          Static sample groups                           : Disabled
-**          A/D resolution                                 : Autoselect
+**          A/D resolution                                 : 8 bits
 **          Low-power mode                                 : Disabled
 **          High-speed conversion mode                     : Disabled
 **          Asynchro clock output                          : Disabled
 **          Sample time                                    : 4 clock periods
 **          Number of conversions                          : 1
-**          Conversion time                                : 4 µs
-**          ADC clock                                      : 6.25 MHz (160 ns)
-**          Single conversion time - Single-ended          : 4.866 us
-**          Single conversion time - Differential          : 6.306 us
-**          Additional conversion time - Single-ended      : 4 us
-**          Additional conversion time - Differential      : 5.44 us
-**          Result type                                    : unsigned 16 bits, right justified
+**          Conversion time                                : 13.076923 µs
+**          ADC clock                                      : 1.299 MHz (769.231 ns)
+**          Single conversion time - Single-ended          : 21.989 us
+**          Single conversion time - Differential          : 29.682 us
+**          Additional conversion time - Single-ended      : 13.076 us
+**          Additional conversion time - Differential      : 20.769 us
+**          Result type                                    : unsigned 8 bits, right justified
 **          Trigger                                        : Disabled
 **          Voltage reference                              : 
 **            High voltage reference                       : 

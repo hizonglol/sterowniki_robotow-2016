@@ -6,7 +6,7 @@
 **     Component   : PWM_LDD
 **     Version     : Component 01.013, Driver 01.03, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-04-05, 19:56, # CodeGen: 18
+**     Date/Time   : 2016-04-06, 22:46, # CodeGen: 28
 **     Abstract    :
 **          This component implements a pulse-width modulation generator
 **          that generates signal with variable duty and fixed cycle.
@@ -21,9 +21,9 @@
 **          Output pin signal                              : 
 **          Counter                                        : FTM3_CNT
 **          Interrupt service/event                        : Disabled
-**          Period                                         : 1 sec
-**          Starting pulse width                           : 0.1 sec
-**          Initial polarity                               : low
+**          Period                                         : 2.5 sec
+**          Starting pulse width                           : 1.6 sec
+**          Initial polarity                               : high
 **          Initialization                                 : 
 **            Enabled in init. code                        : yes
 **            Auto initialization                          : yes
@@ -112,8 +112,8 @@ extern "C" {
 #endif 
 
 
-#define dioda_g_PERIOD_VALUE 0x5F5EUL  /* Initial period value in ticks of the timer. */
-#define dioda_g_PERIOD_VALUE_0 0x5F5EUL /* Period value in ticks of the timer in clock configuration 0. */
+#define dioda_g_PERIOD_VALUE 0xEE6BUL  /* Initial period value in ticks of the timer. */
+#define dioda_g_PERIOD_VALUE_0 0xEE6BUL /* Period value in ticks of the timer in clock configuration 0. */
 
 /*! Peripheral base address of a device allocated by the component. This constant can be used directly in PDD macros. */
 #define dioda_g_PRPH_BASE_ADDRESS  0x400B9000U

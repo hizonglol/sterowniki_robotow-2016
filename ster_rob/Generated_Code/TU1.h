@@ -6,7 +6,7 @@
 **     Component   : TimerUnit_LDD
 **     Version     : Component 01.164, Driver 01.11, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-04-04, 21:57, # CodeGen: 6
+**     Date/Time   : 2016-04-06, 22:46, # CodeGen: 28
 **     Abstract    :
 **          This TimerUnit component provides a low level API for unified hardware access across
 **          various timer devices using the Prescaler-Counter-Compare-Capture timer structure.
@@ -27,10 +27,10 @@
 **            Channel 0                                    : 
 **              Mode                                       : Compare
 **                Compare                                  : FTM0_C0V
-**                Offset                                   : 1.5 ms
-**                Output on compare                        : Set
-**                  Output on overrun                      : Clear
-**                  Initial state                          : Low
+**                Offset                                   : 0 ms
+**                Output on compare                        : Clear
+**                  Output on overrun                      : Set
+**                  Initial state                          : High
 **                  Output pin                             : ADC0_SE15/TSI0_CH14/PTC1/LLWU_P6/SPI0_PCS3/UART1_RTS_b/FTM0_CH0/FBa_AD13/NFC_DATA10/I2S0_TXD0
 **                  Output pin signal                      : 
 **                Interrupt                                : Disabled
@@ -138,7 +138,7 @@ extern "C" {
 #define TU1_NUMBER_OF_CHANNELS 0x01U   /* Count of predefined channels */
 #define TU1_COUNTER_WIDTH  0x10U       /* Counter width in bits  */
 #define TU1_COUNTER_DIR    DIR_UP      /* Direction of counting */
-#define TU1_OFFSET_0_TICKS 0x25ul      /* Initialization value of offset as 'counter ticks' for channel 0 */
+#define TU1_OFFSET_0_TICKS 0x00ul      /* Initialization value of offset as 'counter ticks' for channel 0 */
 /*! Peripheral base address of a device allocated by the component. This constant can be used directly in PDD macros. */
 #define TU1_PRPH_BASE_ADDRESS  0x40038000U
   

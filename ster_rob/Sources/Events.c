@@ -75,7 +75,7 @@ void Cpu_OnNMIINT(void)
 /* ===================================================================*/
 void periodyczne_OnInterrupt(LDD_TUserData *UserDataPtr)
 {
-  /* Write your code here ... */
+	dioda3_NegVal(NULL);
 }
 
 /*
@@ -95,7 +95,7 @@ void periodyczne_OnInterrupt(LDD_TUserData *UserDataPtr)
 /* ===================================================================*/
 void extINT_OnInterrupt(LDD_TUserData *UserDataPtr)
 {
-  /* Write your code here ... */
+	dioda1_NegVal(NULL);
 }
 
 /*

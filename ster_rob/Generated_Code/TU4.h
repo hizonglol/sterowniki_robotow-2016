@@ -6,7 +6,7 @@
 **     Component   : TimerUnit_LDD
 **     Version     : Component 01.164, Driver 01.11, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-04-04, 23:35, # CodeGen: 17
+**     Date/Time   : 2016-04-06, 22:46, # CodeGen: 28
 **     Abstract    :
 **          This TimerUnit component provides a low level API for unified hardware access across
 **          various timer devices using the Prescaler-Counter-Compare-Capture timer structure.
@@ -21,36 +21,36 @@
 **            Counter frequency                            : 24.414062 kHz
 **          Counter restart                                : On-match
 **            Period device                                : FTM3_MOD
-**            Period                                       : 1 sec
+**            Period                                       : 2.5 sec
 **            Interrupt                                    : Disabled
 **          Channel list                                   : 3
 **            Channel 0                                    : 
 **              Mode                                       : Compare
 **                Compare                                  : FTM3_C0V
-**                Offset                                   : 0.8 sec
-**                Output on compare                        : Set
-**                  Output on overrun                      : Clear
-**                  Initial state                          : Low
+**                Offset                                   : 2.5 sec
+**                Output on compare                        : Clear
+**                  Output on overrun                      : Set
+**                  Initial state                          : High
 **                  Output pin                             : PTD0/LLWU_P12/SPI0_PCS0/UART2_RTS_b/FTM3_CH0/FBa_ALE/FBa_CS1_b/FBa_TS_b/I2S1_RXD1
 **                  Output pin signal                      : 
 **                Interrupt                                : Disabled
 **            Channel 1                                    : 
 **              Mode                                       : Compare
 **                Compare                                  : FTM3_C1V
-**                Offset                                   : 0.1 sec
-**                Output on compare                        : Set
-**                  Output on overrun                      : Clear
-**                  Initial state                          : Low
+**                Offset                                   : 1.6 sec
+**                Output on compare                        : Clear
+**                  Output on overrun                      : Set
+**                  Initial state                          : High
 **                  Output pin                             : ADC0_SE5b/PTD1/SPI0_SCK/UART2_CTS_b/FTM3_CH1/FBa_CS0_b/I2S1_RXD0
 **                  Output pin signal                      : 
 **                Interrupt                                : Disabled
 **            Channel 2                                    : 
 **              Mode                                       : Compare
 **                Compare                                  : FTM3_C2V
-**                Offset                                   : 0.1 sec
-**                Output on compare                        : Set
-**                  Output on overrun                      : Clear
-**                  Initial state                          : Low
+**                Offset                                   : 0.8 sec
+**                Output on compare                        : Clear
+**                  Output on overrun                      : Set
+**                  Initial state                          : High
 **                  Output pin                             : PTD2/LLWU_P13/SPI0_SOUT/UART2_RX/FTM3_CH2/FBa_AD4/I2S1_RX_FS
 **                  Output pin signal                      : 
 **                Interrupt                                : Disabled
@@ -154,13 +154,13 @@ extern "C" {
 #define TU4_CNT_INP_FREQ_U_0 0x5F5EUL  /* Counter input frequency in Hz */
 #define TU4_CNT_INP_FREQ_R_0 24414.0625F /* Counter input frequency in Hz */
 #define TU4_CNT_INP_FREQ_COUNT 0U      /* Count of predefined counter input frequencies */
-#define TU4_PERIOD_TICKS   0x5F5EUL    /* Initialization value of period in 'counter ticks' */
+#define TU4_PERIOD_TICKS   0xEE6BUL    /* Initialization value of period in 'counter ticks' */
 #define TU4_NUMBER_OF_CHANNELS 0x03U   /* Count of predefined channels */
 #define TU4_COUNTER_WIDTH  0x10U       /* Counter width in bits  */
 #define TU4_COUNTER_DIR    DIR_UP      /* Direction of counting */
-#define TU4_OFFSET_0_TICKS 0x4C4Bul    /* Initialization value of offset as 'counter ticks' for channel 0 */
-#define TU4_OFFSET_1_TICKS 0x0989ul    /* Initialization value of offset as 'counter ticks' for channel 1 */
-#define TU4_OFFSET_2_TICKS 0x0989ul    /* Initialization value of offset as 'counter ticks' for channel 2 */
+#define TU4_OFFSET_0_TICKS 0xEE6Bul    /* Initialization value of offset as 'counter ticks' for channel 0 */
+#define TU4_OFFSET_1_TICKS 0x9896ul    /* Initialization value of offset as 'counter ticks' for channel 1 */
+#define TU4_OFFSET_2_TICKS 0x4C4Bul    /* Initialization value of offset as 'counter ticks' for channel 2 */
 /*! Peripheral base address of a device allocated by the component. This constant can be used directly in PDD macros. */
 #define TU4_PRPH_BASE_ADDRESS  0x400B9000U
   

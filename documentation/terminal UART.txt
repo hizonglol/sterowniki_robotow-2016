@@ -1,0 +1,1 @@
+http://mcuoneclipse.com/2013/11/16/tutorial-using-a-terminal-input-and-output-without-printf-and-scanf/

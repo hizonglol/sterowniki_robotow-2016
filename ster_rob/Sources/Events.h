@@ -49,8 +49,8 @@
 #include "extINT_init.h"
 #include "ADC.h"
 #include "AdcLdd1.h"
-#include "UART.h"
-#include "ASerialLdd1.h"
+#include "terminal.h"
+#include "IO1.h"
 
 #ifdef __cplusplus
 extern "C" {

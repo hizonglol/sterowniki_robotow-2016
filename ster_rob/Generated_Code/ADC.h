@@ -6,7 +6,7 @@
 **     Component   : ADC
 **     Version     : Component 01.697, Driver 01.00, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-04-05, 21:57, # CodeGen: 23
+**     Date/Time   : 2016-04-06, 22:46, # CodeGen: 28
 **     Abstract    :
 **         This device "ADC" implements an A/D converter,
 **         its control methods and interrupt/event handling procedure.
@@ -23,8 +23,8 @@
 **              A/D channel (pin)                          : ADC0_SE9/ADC1_SE9/ADC2_SE9/ADC3_SE9/TSI0_CH6/PTB1/I2C0_SDA/FTM1_CH1/RMII0_MDC/MII0_MDC/FTM1_QD_PHB
 **              A/D channel (pin) signal                   : 
 **              Mode select                                : Single Ended
-**          A/D resolution                                 : Autoselect
-**          Conversion time                                : 4 µs
+**          A/D resolution                                 : 8 bits
+**          Conversion time                                : 13.076923 µs
 **          Low-power mode                                 : Disabled
 **          High-speed conversion mode                     : Disabled
 **          Asynchro clock output                          : Disabled
@@ -45,7 +45,6 @@
 **     Contents    :
 **         Measure    - byte ADC_Measure(bool WaitForResult);
 **         GetValue16 - byte ADC_GetValue16(word *Values);
-**         Calibrate  - byte ADC_Calibrate(bool WaitForResult);
 **
 **     Copyright : 1997 - 2014 Freescale Semiconductor, Inc. 
 **     All Rights Reserved.
@@ -193,33 +192,6 @@ byte ADC_GetValue16(word *Values);
 **                           (see generated code).
 */
 /* ===================================================================*/
-
-byte ADC_Calibrate(bool WaitForResult);
-/*
-** ===================================================================
-**     Method      :  ADC_Calibrate (component ADC)
-**     Description :
-**         This method starts self calibration process. Calibration is
-**         typically used to remove the effects of the gain and offset
-**         from a specific reading.
-**     Parameters  :
-**         NAME            - DESCRIPTION
-**         WaitForResult   - Wait for a result of
-**                           calibration. If the <interrupt service> is
-**                           disabled, the WaitForResult parameter is
-**                           ignored and the method waits for
-**                           calibration result every time.
-**     Returns     :
-**         ---             - Error code
-**                           ERR_OK - OK
-**                           ERR_BUSY - A conversion is already running
-**                           ERR_SPEED - This device does not work in
-**                           the active speed mode
-**                           ERR_DISABLED - Device is disabled
-**                           ERR_FAILED - Calibration hasn't been
-**                           finished correctly
-** ===================================================================
-*/
 
 void AdcLdd1_OnMeasurementComplete(LDD_TUserData *UserDataPtr);
 

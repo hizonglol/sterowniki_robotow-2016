@@ -45,8 +45,8 @@
 #include "extINT_init.h"
 #include "ADC.h"
 #include "AdcLdd1.h"
-#include "UART.h"
-#include "ASerialLdd1.h"
+#include "terminal.h"
+#include "IO1.h"
 /* Including shared modules, which are used for whole project */
 #include "PE_Types.h"
 #include "PE_Error.h"
@@ -54,6 +54,9 @@
 #include "IO_Map.h"
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
+#include <stdio.h>
+uint16 pomiar;
+char str_pomiar[15];
 
 /*lint -save  -e970 Disable MISRA rule (6.3) checking. */
 int main(void)
@@ -66,7 +69,22 @@ int main(void)
   /*** End of Processor Expert internal initialization.                    ***/
 
   /* Write your code here */
-  /* For example: for(;;) { } */
+  dioda1_Init(NULL);
+  dioda2_Init(NULL);
+  dioda3_Init(NULL);
+  IO1_Init(NULL);
+  
+  dioda2_SetVal(NULL);
+  
+  for(;;) {
+	  (void)ADC_Measure(TRUE);
+	  (void)ADC_GetValue16(&pomiar);
+	  pomiar>>8;
+	  
+	  snprintf(str_pomiar, 15, "%d", pomiar);
+	  serwo_SetRatio16(NULL, pomiar/10);
+	  IO1_SendBlock(NULL, str_pomiar, sizeof(str_pomiar));
+  }
 
   /*** Don't write any code pass this line, or it will be deleted during code generation. ***/
   /*** RTOS startup code. Macro PEX_RTOS_START is defined by the RTOS component. DON'T MODIFY THIS CODE!!! ***/

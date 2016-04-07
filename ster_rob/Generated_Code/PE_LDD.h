@@ -5,7 +5,7 @@
 **     Processor   : MK60FX512VLQ15
 **     Version     : Component 01.006, Driver 01.04, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-04-05, 21:57, # CodeGen: 23
+**     Date/Time   : 2016-04-06, 23:04, # CodeGen: 30
 **     Abstract    :
 **
 **     Settings    :
@@ -75,8 +75,8 @@
 #include "extINT_init.h"
 #include "ADC.h"
 #include "AdcLdd1.h"
-#include "UART.h"
-#include "ASerialLdd1.h"
+#include "terminal.h"
+#include "IO1.h"
 
 
 /*

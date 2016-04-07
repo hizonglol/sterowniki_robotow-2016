@@ -6,7 +6,7 @@
 **     Component   : ADC_LDD
 **     Version     : Component 01.183, Driver 01.08, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-04-05, 21:57, # CodeGen: 23
+**     Date/Time   : 2016-04-06, 22:46, # CodeGen: 28
 **     Abstract    :
 **         This device "ADC_LDD" implements an A/D converter,
 **         its control methods and interrupt/event handling procedure.
@@ -25,19 +25,19 @@
 **                  A/D channel (pin)                      : ADC0_SE9/ADC1_SE9/ADC2_SE9/ADC3_SE9/TSI0_CH6/PTB1/I2C0_SDA/FTM1_CH1/RMII0_MDC/MII0_MDC/FTM1_QD_PHB
 **                  A/D channel (pin) signal               : 
 **          Static sample groups                           : Disabled
-**          A/D resolution                                 : Autoselect
+**          A/D resolution                                 : 8 bits
 **          Low-power mode                                 : Disabled
 **          High-speed conversion mode                     : Disabled
 **          Asynchro clock output                          : Disabled
 **          Sample time                                    : 4 clock periods
 **          Number of conversions                          : 1
-**          Conversion time                                : 4 µs
-**          ADC clock                                      : 6.25 MHz (160 ns)
-**          Single conversion time - Single-ended          : 4.866 us
-**          Single conversion time - Differential          : 6.306 us
-**          Additional conversion time - Single-ended      : 4 us
-**          Additional conversion time - Differential      : 5.44 us
-**          Result type                                    : unsigned 16 bits, right justified
+**          Conversion time                                : 13.076923 µs
+**          ADC clock                                      : 1.299 MHz (769.231 ns)
+**          Single conversion time - Single-ended          : 21.989 us
+**          Single conversion time - Differential          : 29.682 us
+**          Additional conversion time - Single-ended      : 13.076 us
+**          Additional conversion time - Differential      : 20.769 us
+**          Result type                                    : unsigned 8 bits, right justified
 **          Trigger                                        : Disabled
 **          Voltage reference                              : 
 **            High voltage reference                       : 
@@ -68,8 +68,6 @@
 **         GetMeasuredValues            - LDD_TError AdcLdd1_GetMeasuredValues(LDD_TDeviceData *DeviceDataPtr,...
 **         CreateSampleGroup            - LDD_TError AdcLdd1_CreateSampleGroup(LDD_TDeviceData *DeviceDataPtr,...
 **         GetMeasurementCompleteStatus - bool AdcLdd1_GetMeasurementCompleteStatus(LDD_TDeviceData *DeviceDataPtr);
-**         StartCalibration             - LDD_TError AdcLdd1_StartCalibration(LDD_TDeviceData *DeviceDataPtr);
-**         GetCalibrationResultStatus   - LDD_TError AdcLdd1_GetCalibrationResultStatus(LDD_TDeviceData *DeviceDataPtr);
 **
 **     Copyright : 1997 - 2014 Freescale Semiconductor, Inc. 
 **     All Rights Reserved.
@@ -192,10 +190,10 @@ LDD_TDeviceData* AdcLdd1_Init(LDD_TUserData *UserDataPtr)
   NVICISER1 |= NVIC_ISER_SETENA(0x04000000);
   /* PORTB_PCR1: ISF=0,MUX=0 */
   PORTB_PCR1 &= (uint32_t)~(uint32_t)((PORT_PCR_ISF_MASK | PORT_PCR_MUX(0x07)));
-  /* ADC1_CFG1: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,ADLPC=0,ADIV=3,ADLSMP=0,MODE=3,ADICLK=2 */
-  ADC1_CFG1 = ADC_CFG1_ADIV(0x03) |
-              ADC_CFG1_MODE(0x03) |
-              ADC_CFG1_ADICLK(0x02);
+  /* ADC1_CFG1: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,ADLPC=0,ADIV=2,ADLSMP=0,MODE=0,ADICLK=3 */
+  ADC1_CFG1 = ADC_CFG1_ADIV(0x02) |
+              ADC_CFG1_MODE(0x00) |
+              ADC_CFG1_ADICLK(0x03);
   /* ADC1_CFG2: ADACKEN=0,ADHSC=0,ADLSTS=0 */
   ADC1_CFG2 &= (uint32_t)~(uint32_t)(
                 ADC_CFG2_ADACKEN_MASK |
@@ -394,7 +392,7 @@ LDD_TError AdcLdd1_GetMeasuredValues(LDD_TDeviceData *DeviceDataPtr, LDD_TData *
   /* Copy values from result registers defined in the active sample
      group to the user supplied buffer */
   for (Sample = 0U; Sample < ((AdcLdd1_TDeviceDataPtr)DeviceDataPtr)->SampleCount; Sample++) {
-    pBuffer[Sample] =(uint16_t)(ADC_PDD_GetResultValueRaw(ADC1_BASE_PTR, Sample));
+    pBuffer[Sample] =(uint8_t)(ADC_PDD_GetResultValueRaw(ADC1_BASE_PTR, Sample));
   }
   return ERR_OK;                       /* OK */
 }
@@ -430,87 +428,6 @@ bool AdcLdd1_GetMeasurementCompleteStatus(LDD_TDeviceData *DeviceDataPtr)
   /* {Default RTOS Adapter} Critical section end, general PE function is used */
   ExitCritical();
   return (bool)((Status)? TRUE : FALSE); /* Return saved status */
-}
-
-/*
-** ===================================================================
-**     Method      :  AdcLdd1_StartCalibration (component ADC_LDD)
-*/
-/*!
-**     @brief
-**         This method starts self calibration process. Calibration is
-**         typically used to remove the effects of the gain and offset
-**         from a specific reading.
-**     @param
-**         DeviceDataPtr   - Device data structure
-**                           pointer returned by [Init] method.
-**     @return
-**                         - Error code
-**                           ERR_OK - OK
-**                           ERR_SPEED - The device doesn't work in the
-**                           active clock configuration
-**                           ERR_DISABLED - Component is disabled
-**                           ERR_BUSY - A conversion is already running 
-*/
-/* ===================================================================*/
-LDD_TError AdcLdd1_StartCalibration(LDD_TDeviceData *DeviceDataPtr)
-{
-  (void)DeviceDataPtr;                 /* Parameter is not used, suppress unused argument warning */
-  if (ADC_PDD_GetConversionActiveFlag(ADC1_BASE_PTR) != 0U) { /* Last measurement still pending? */
-    return ERR_BUSY;                   /* Yes, return ERR_BUSY */
-  }
-  ADC_PDD_SetConversionTriggerType(ADC1_BASE_PTR, ADC_PDD_SW_TRIGGER); /* Select SW triggering */
-  ADC_PDD_WriteStatusControl1Reg(ADC1_BASE_PTR, 0U, ADC_PDD_MODULE_DISABLED | ((uint32_t)LDD_ADC_ON_MEASUREMENT_COMPLETE)); /* Set Control 1 register */
-  ADC_PDD_StartCalibration(ADC1_BASE_PTR); /* Start calibration */
-  return ERR_OK;
-}
-
-/*
-** ===================================================================
-**     Method      :  AdcLdd1_GetCalibrationResultStatus (component ADC_LDD)
-*/
-/*!
-**     @brief
-**         This method should be used for check the last calibration
-**         result. If calibration completed normally the method finish
-**         calibration process by writing gain calibration values.
-**     @param
-**         DeviceDataPtr   - Device data structure
-**                           pointer returned by [Init] method.
-**     @return
-**                         - Error code
-**                           ERR_OK - OK 
-**                           ERR_FAILED - Last calibration hasn't been
-**                           finished correctly
-*/
-/* ===================================================================*/
-LDD_TError AdcLdd1_GetCalibrationResultStatus(LDD_TDeviceData *DeviceDataPtr)
-{
-  uint32_t GainValue;
-
-  (void)DeviceDataPtr;                 /* Parameter is not used, suppress unused argument warning */
-  if (ADC_PDD_GetCalibrationFailedStatusFlag(ADC1_BASE_PTR)) {
-    return ERR_FAILED;
-  }
-  /* If calibration is successfully passed place calibrated value into gain registers */
-  /* Cumulated gradually because of undefined behavior: the order of volatile accesses is undefined in this statement */
-  GainValue = ADC_PDD_GetPlus0CalibrationValue(ADC1_BASE_PTR); /* Find plus gain value */
-  GainValue += ADC_PDD_GetPlus1CalibrationValue(ADC1_BASE_PTR);
-  GainValue += ADC_PDD_GetPlus2CalibrationValue(ADC1_BASE_PTR);
-  GainValue += ADC_PDD_GetPlus3CalibrationValue(ADC1_BASE_PTR);
-  GainValue += ADC_PDD_GetPlus4CalibrationValue(ADC1_BASE_PTR);
-  GainValue += ADC_PDD_GetPlusSCalibrationValue(ADC1_BASE_PTR);
-  GainValue = (GainValue >> 1U) | 0x8000U;
-  ADC_PDD_SetPlusGainValue(ADC1_BASE_PTR,GainValue); /* Set plus gain value */
-  GainValue = ADC_PDD_GetMinus0CalibrationValue(ADC1_BASE_PTR); /* Find minus gain value */
-  GainValue += ADC_PDD_GetMinus1CalibrationValue(ADC1_BASE_PTR);
-  GainValue += ADC_PDD_GetMinus2CalibrationValue(ADC1_BASE_PTR);
-  GainValue += ADC_PDD_GetMinus3CalibrationValue(ADC1_BASE_PTR);
-  GainValue += ADC_PDD_GetMinus4CalibrationValue(ADC1_BASE_PTR);
-  GainValue += ADC_PDD_GetMinusSCalibrationValue(ADC1_BASE_PTR);
-  GainValue =  (GainValue >> 1U) | 0x8000U;
-  ADC_PDD_SetMinusGainValue(ADC1_BASE_PTR,GainValue); /* Set minus gain value */
-  return ERR_OK;
 }
 
 /*

@@ -6,7 +6,7 @@
 **     Component   : BitIO_LDD
 **     Version     : Component 01.033, Driver 01.03, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-04-05, 20:41, # CodeGen: 20
+**     Date/Time   : 2016-04-06, 18:08, # CodeGen: 27
 **     Abstract    :
 **         The HAL BitIO component provides a low level API for unified
 **         access to general purpose digital input/output pins across
@@ -25,10 +25,10 @@
 **            Auto initialization                          : no
 **          Safe mode                                      : no
 **     Contents    :
+**         Init   - LDD_TDeviceData* dioda3_Init(LDD_TUserData *UserDataPtr);
 **         GetVal - bool dioda3_GetVal(LDD_TDeviceData *DeviceDataPtr);
-**         PutVal - void dioda3_PutVal(LDD_TDeviceData *DeviceDataPtr, bool Val);
-**         ClrVal - void dioda3_ClrVal(LDD_TDeviceData *DeviceDataPtr);
 **         SetVal - void dioda3_SetVal(LDD_TDeviceData *DeviceDataPtr);
+**         NegVal - void dioda3_NegVal(LDD_TDeviceData *DeviceDataPtr);
 **
 **     Copyright : 1997 - 2014 Freescale Semiconductor, Inc. 
 **     All Rights Reserved.
@@ -103,10 +103,10 @@ extern "C" {
 #define dioda3_PRPH_BASE_ADDRESS  0x400FF100U
   
 /* Methods configuration constants - generated for all enabled component's methods */
+#define dioda3_Init_METHOD_ENABLED     /*!< Init method of the component dioda3 is enabled (generated) */
 #define dioda3_GetVal_METHOD_ENABLED   /*!< GetVal method of the component dioda3 is enabled (generated) */
-#define dioda3_PutVal_METHOD_ENABLED   /*!< PutVal method of the component dioda3 is enabled (generated) */
-#define dioda3_ClrVal_METHOD_ENABLED   /*!< ClrVal method of the component dioda3 is enabled (generated) */
 #define dioda3_SetVal_METHOD_ENABLED   /*!< SetVal method of the component dioda3 is enabled (generated) */
+#define dioda3_NegVal_METHOD_ENABLED   /*!< NegVal method of the component dioda3 is enabled (generated) */
 
 /* Definition of implementation constants */
 #define dioda3_MODULE_BASE_ADDRESS PTE_BASE_PTR /*!< Name of macro used as the base address */
@@ -114,6 +114,30 @@ extern "C" {
 #define dioda3_PORT_MASK 0x04U         /*!< Mask of the allocated pin from the port */
 
 
+
+/*
+** ===================================================================
+**     Method      :  dioda3_Init (component BitIO_LDD)
+*/
+/*!
+**     @brief
+**         Initializes the device. Allocates memory for the device data
+**         structure, allocates interrupt vectors and sets interrupt
+**         priority, sets pin routing, sets timing, etc. If the "Enable
+**         in init. code" is set to "yes" value then the device is also
+**         enabled(see the description of the Enable() method). In this
+**         case the Enable() method is not necessary and needn't to be
+**         generated. 
+**     @param
+**         UserDataPtr     - Pointer to the user or
+**                           RTOS specific data. This pointer will be
+**                           passed as an event or callback parameter.
+**     @return
+**                         - Pointer to the dynamically allocated private
+**                           structure or NULL if there was an error.
+*/
+/* ===================================================================*/
+LDD_TDeviceData* dioda3_Init(LDD_TUserData *UserDataPtr);
 
 /*
 ** ===================================================================
@@ -139,48 +163,6 @@ bool dioda3_GetVal(LDD_TDeviceData *DeviceDataPtr);
 
 /*
 ** ===================================================================
-**     Method      :  dioda3_PutVal (component BitIO_LDD)
-*/
-/*!
-**     @brief
-**         The specified output value is set. If the direction is <b>
-**         input</b>, the component saves the value to a memory or a
-**         register and this value will be written to the pin after
-**         switching to the output mode (using <tt>SetDir(TRUE)</tt>;
-**         see <a href="BitIOProperties.html#SafeMode">Safe mode</a>
-**         property for limitations). If the direction is <b>output</b>,
-**         it writes the value to the pin. (Method is available only if
-**         the direction = <u><tt>output</tt></u> or <u><tt>
-**         input/output</tt></u>).
-**     @param
-**         DeviceDataPtr   - Device data structure
-**                           pointer returned by <Init> method.
-**     @param
-**         Val             - Output value. Possible values:
-**                           <false> - logical "0" (Low level)
-**                           <true> - logical "1" (High level)
-*/
-/* ===================================================================*/
-void dioda3_PutVal(LDD_TDeviceData *DeviceDataPtr, bool Val);
-
-/*
-** ===================================================================
-**     Method      :  dioda3_ClrVal (component BitIO_LDD)
-*/
-/*!
-**     @brief
-**         Clears (set to zero) the output value. It is equivalent to
-**         the [PutVal(FALSE)]. This method is available only if the
-**         direction = _[output]_ or _[input/output]_.
-**     @param
-**         DeviceDataPtr   - Pointer to device data
-**                           structure returned by <Init> method.
-*/
-/* ===================================================================*/
-void dioda3_ClrVal(LDD_TDeviceData *DeviceDataPtr);
-
-/*
-** ===================================================================
 **     Method      :  dioda3_SetVal (component BitIO_LDD)
 */
 /*!
@@ -194,6 +176,22 @@ void dioda3_ClrVal(LDD_TDeviceData *DeviceDataPtr);
 */
 /* ===================================================================*/
 void dioda3_SetVal(LDD_TDeviceData *DeviceDataPtr);
+
+/*
+** ===================================================================
+**     Method      :  dioda3_NegVal (component BitIO_LDD)
+*/
+/*!
+**     @brief
+**         Negates (inverts) the output value. It is equivalent to the
+**         [PutVal(!GetVal())]. This method is available only if the
+**         direction = _[output]_ or _[input/output]_.
+**     @param
+**         DeviceDataPtr   - Pointer to device data
+**                           structure returned by <Init> method.
+*/
+/* ===================================================================*/
+void dioda3_NegVal(LDD_TDeviceData *DeviceDataPtr);
 
 /* END dioda3. */
 
